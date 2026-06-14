@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeWatch v2.0 | AI Surveillance Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="logo">
+                <span class="logo-text">SAFE<span class="logo-accent">WATCH</span> <span style="font-size:14px;color:var(--accent-cyan)">v2.0</span></span>
+            </div>
+            <span class="version-tag">AI SURVEILLANCE PRO</span>
+        </div>
+        <div class="topbar-center">
+            <div class="system-status" id="systemStatus">
+                <span class="pulse-dot green"></span>
+                <span>ALL SYSTEMS ACTIVE</span>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="clock" id="clock">--:--:--</div>
+            <div class="date" id="date">---</div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left">
+            <div class="sidebar-section">
+                <h3 class="section-title">CAMERAS <span class="badge green" id="cameraCount">0</span></h3>
+                <div class="camera-list" id="cameraList"><div class="loading-spinner">Loading...</div></div>
+            </div>
+            <div class="sidebar-section">
+                <h3 class="section-title">INCIDENT STATS</h3>
+                <div class="stats-grid">
+                    <div class="stat-card red"><div class="stat-num" id="statHigh">0</div><div class="stat-label">HIGH</div></div>
+                    <div class="stat-card orange"><div class="stat-num" id="statMedium">0</div><div class="stat-label">MEDIUM</div></div>
+                    <div class="stat-card green"><div class="stat-num" id="statLow">0</div><div class="stat-label">LOW</div></div>
+                    <div class="stat-card blue"><div class="stat-num" id="statTotal">0</div><div class="stat-label">TOTAL</div></div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h3 class="section-title">ANALYTICS</h3>
+                <div class="analytics-container" id="analyticsChart">
+                    <div class="chart-bar-row">
+                        <div class="chart-bar-label">HIGH</div>
+                        <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-high" style="width:0%;background:var(--color-red)"></div></div>
+                        <div class="chart-bar-val" id="val-high">0</div>
+                    </div>
+                    <div class="chart-bar-row">
+                        <div class="chart-bar-label">MED</div>
+                        <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-medium" style="width:0%;background:var(--color-orange)"></div></div>
+                        <div class="chart-bar-val" id="val-medium">0</div>
+                    </div>
+                    <div class="chart-bar-row">
+                        <div class="chart-bar-label">LOW</div>
+                        <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-low" style="width:0%;background:var(--color-green)"></div></div>
+                        <div class="chart-bar-val" id="val-low">0</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="alert-banner" id="alertBanner" style="display:none;">
+                <span style="font-family:var(--font-display);font-weight:700;color:var(--color-red);font-size:11px;letter-spacing:2px;">ALERT</span>
+                <span id="alertBannerText">Suspicious activity detected!</span>
+                <button onclick="dismissAlert()">X</button>
+            </div>
+
+            <section class="camera-grid-section">
+                <div class="section-header">
+                    <h2>LIVE CAMERA FEEDS</h2>
+                    <div class="grid-controls">
+                        <button class="grid-btn active" onclick="setGrid(2,this)">2x2</button>
+                        <button class="grid-btn" onclick="setGrid(1,this)">1x1</button>
+                    </div>
+                </div>
+                <div class="camera-grid grid-2x2" id="cameraGrid">
+                    <div class="camera-feed" id="feed-CAM_001">
+                        <div class="feed-header"><span class="cam-id">CAM_001</span><span class="cam-loc">Elevator Block A</span><span class="threat-badge low" id="badge-CAM_001">LOW</span></div>
+                        <div class="feed-video"><div class="feed-placeholder"><div class="cam-icon">CAM</div><div class="cam-text">Elevator Block A</div><div class="cam-status">LIVE</div></div><div class="scan-line"></div></div>
+                        <div class="feed-footer"><span class="conf-label">AI: <span class="conf-val" id="conf-CAM_001">--</span></span><span class="conf-label">Persons: <span class="conf-val" id="persons-CAM_001">0</span></span></div>
+                    </div>
+                    <div class="camera-feed" id="feed-CAM_002">
+                        <div class="feed-header"><span class="cam-id">CAM_002</span><span class="cam-loc">Park North Gate</span><span class="threat-badge low" id="badge-CAM_002">LOW</span></div>
+                        <div class="feed-video"><div class="feed-placeholder"><div class="cam-icon">CAM</div><div class="cam-text">Park North Gate</div><div class="cam-status">LIVE</div></div><div class="scan-line"></div></div>
+                        <div class="feed-footer"><span class="conf-label">AI: <span class="conf-val" id="conf-CAM_002">--</span></span><span class="conf-label">Persons: <span class="conf-val" id="persons-CAM_002">0</span></span></div>
+                    </div>
+                    <div class="camera-feed" id="feed-CAM_003">
+                        <div class="feed-header"><span class="cam-id">CAM_003</span><span class="cam-loc">Bus Stop MG Road</span><span class="threat-badge low" id="badge-CAM_003">LOW</span></div>
+                        <div class="feed-video"><div class="feed-placeholder"><div class="cam-icon">CAM</div><div class="cam-text">Bus Stop MG Road</div><div class="cam-status">LIVE</div></div><div class="scan-line"></div></div>
+                        <div class="feed-footer"><span class="conf-label">AI: <span class="conf-val" id="conf-CAM_003">--</span></span><span class="conf-label">Persons: <span class="conf-val" id="persons-CAM_003">0</span></span></div>
+                    </div>
+                    <div class="camera-feed" id="feed-CAM_004">
+                        <div class="feed-header"><span class="cam-id">CAM_004</span><span class="cam-loc">Parking Lot B2</span><span class="threat-badge low" id="badge-CAM_004">LOW</span></div>
+                        <div class="feed-video"><div class="feed-placeholder"><div class="cam-icon">CAM</div><div class="cam-text">Parking Lot B2</div><div class="cam-status">LIVE</div></div><div class="scan-line"></div></div>
+                        <div class="feed-footer"><span class="conf-label">AI: <span class="conf-val" id="conf-CAM_004">--</span></span><span class="conf-label">Persons: <span class="conf-val" id="persons-CAM_004">0</span></span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="incident-section">
+                <div class="section-header">
+                    <h2>INCIDENT LOG</h2>
+                    <button class="btn-refresh" onclick="loadIncidents()">REFRESH</button>
+                </div>
+                <div class="incident-table-wrap">
+                    <table class="incident-table">
+                        <thead><tr><th>ID</th><th>CAMERA</th><th>LOCATION</th><th>THREAT</th><th>AI CONF.</th><th>TIME</th><th>STATUS</th><th>ACTION</th></tr></thead>
+                        <tbody id="incidentTableBody"><tr><td colspan="8" style="text-align:center;padding:20px;">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar-right">
+            <div class="sidebar-section">
+                <h3 class="section-title">LIVE ALERTS</h3>
+                <div class="alert-feed" id="alertFeed"><div class="no-alerts">No active alerts</div></div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">THREAT METER</h3>
+                <div class="threat-meter">
+                    <div class="meter-label">OVERALL SYSTEM THREAT</div>
+                    <div class="meter-bar-container"><div class="meter-bar" id="threatMeterBar" style="width:10%"></div></div>
+                    <div class="meter-level" id="threatMeterLevel">LOW</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">ZONE HEATMAP</h3>
+                <div class="heatmap-container">
+                    <div class="heatmap-zone"><span>ELEVATOR</span><span class="zone-level green" id="zone-CAM_001">SAFE</span></div>
+                    <div class="heatmap-zone"><span>PARK</span><span class="zone-level green" id="zone-CAM_002">SAFE</span></div>
+                    <div class="heatmap-zone"><span>BUS STOP</span><span class="zone-level green" id="zone-CAM_003">SAFE</span></div>
+                    <div class="heatmap-zone"><span>PARKING</span><span class="zone-level green" id="zone-CAM_004">SAFE</span></div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">SYSTEM FEATURES</h3>
+                <div class="feature-btns">
+                    <button class="feat-btn active" id="btn-voice" onclick="toggleFeature('voice')">VOICE ON</button>
+                    <button class="feat-btn active" id="btn-night" onclick="toggleFeature('night')">NIGHT AUTO</button>
+                    <button class="feat-btn" id="btn-zones" onclick="toggleFeature('zones')">ZONES OFF</button>
+                    <button class="feat-btn" id="btn-face" onclick="toggleFeature('face')">FACE OFF</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">SIMULATE DETECTION</h3>
+                <p class="sim-desc">Test alert system</p>
+                <div class="sim-controls">
+                    <select id="simCamera" class="sim-select">
+                        <option value="CAM_001">CAM_001 - Elevator</option>
+                        <option value="CAM_002">CAM_002 - Park</option>
+                        <option value="CAM_003">CAM_003 - Bus Stop</option>
+                        <option value="CAM_004">CAM_004 - Parking</option>
+                    </select>
+                    <select id="simThreat" class="sim-select">
+                        <option value="LOW">LOW Threat</option>
+                        <option value="MEDIUM">MEDIUM Threat</option>
+                        <option value="HIGH">HIGH Threat !</option>
+                    </select>
+                    <input type="number" id="simPersons" class="sim-select" placeholder="Persons detected (1-5)" min="1" max="5" value="1">
+                    <button class="btn-simulate" onclick="simulateDetection()">SIMULATE</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Alert Overlay -->
+    <div class="alert-overlay" id="alertOverlay" style="display:none;">
+        <div class="alert-modal">
+            <div class="alert-modal-icon">!</div>
+            <div class="alert-modal-title">HIGH THREAT DETECTED</div>
+            <div class="alert-modal-body" id="alertModalBody">Suspicious activity detected!</div>
+            <button class="alert-modal-btn" onclick="closeAlertModal()">ACKNOWLEDGE</button>
+        </div>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

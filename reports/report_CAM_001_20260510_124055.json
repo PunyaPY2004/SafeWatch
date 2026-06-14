@@ -1,0 +1,16 @@
+{
+  "runtime": "0:01:23",
+  "total_incidents": 1,
+  "by_level": {
+    "LOW": 0,
+    "MEDIUM": 1,
+    "HIGH": 0
+  },
+  "hourly": {
+    "12:00": {
+      "LOW": 0,
+      "MEDIUM": 1,
+      "HIGH": 0
+    }
+  }
+}

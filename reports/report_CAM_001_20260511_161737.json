@@ -1,0 +1,29 @@
+{
+  "runtime": "0:01:21",
+  "total": 4,
+  "by_level": {
+    "LOW": 0,
+    "MEDIUM": 3,
+    "HIGH": 1
+  },
+  "audio_events": [
+    {
+      "time": "16:16:45",
+      "event": "\ud83d\udd34 SHOUTING"
+    }
+  ],
+  "street_events": [
+    {
+      "time": "16:16:45",
+      "event": "Loitering"
+    },
+    {
+      "time": "16:17:13",
+      "event": "Loitering"
+    },
+    {
+      "time": "16:17:29",
+      "event": "Loitering"
+    }
+  ]
+}

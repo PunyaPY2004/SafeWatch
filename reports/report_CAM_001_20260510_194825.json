@@ -1,0 +1,24 @@
+{
+  "runtime": "0:01:42",
+  "total": 6,
+  "by_level": {
+    "LOW": 0,
+    "MEDIUM": 5,
+    "HIGH": 1
+  },
+  "audio_events": [],
+  "street_events": [
+    {
+      "time": "19:47:25",
+      "event": "Loitering"
+    },
+    {
+      "time": "19:48:07",
+      "event": "Loitering"
+    },
+    {
+      "time": "19:48:25",
+      "event": "Loitering"
+    }
+  ]
+}

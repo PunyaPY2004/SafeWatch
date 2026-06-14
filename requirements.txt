@@ -1,0 +1,14 @@
+# SafeWatch v2.0 Requirements
+fastapi
+uvicorn[standard]
+python-multipart
+websockets
+jinja2
+aiofiles
+pydantic
+opencv-python
+numpy
+ultralytics
+pyttsx3
+requests
+pillow

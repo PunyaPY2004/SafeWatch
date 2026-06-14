@@ -1,0 +1,21 @@
+{
+  "runtime": "0:01:15",
+  "total": 3,
+  "by_level": {
+    "LOW": 0,
+    "MEDIUM": 2,
+    "HIGH": 1
+  },
+  "audio_events": [
+    {
+      "time": "16:47:50",
+      "event": "\ud83d\udfe1 RAISED VOICE"
+    }
+  ],
+  "street_events": [
+    {
+      "time": "16:47:50",
+      "event": "Loitering"
+    }
+  ]
+}
