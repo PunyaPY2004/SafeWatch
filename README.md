@@ -2,7 +2,7 @@
 
 > **Transforming passive CCTV cameras into active intelligent safety systems**
 
-![SafeWatch](https://img.shields.io/badge/SafeWatch-v3.0-red) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![YOLOv8](https://img.shields.io/badge/AI-YOLOv8-green) ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-teal) ![License](https://img.shields.io/badge/License-MIT-yellow)
+![SafeWatch](https://img.shields.io/badge/SafeWatch-v3.0-red) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![YOLOv8](https://img.shields.io/badge/AI-YOLOv8-green) ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-teal) 
 
 ---
 
